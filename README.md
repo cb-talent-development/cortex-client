@@ -1,4 +1,8 @@
 # cortex-client
+
+[![Build Status](https://travis-ci.org/cb-talent-development/cortex-client.svg)](https://travis-ci.org/cb-talent-development/cortex-client)
+[![Gem Version](https://badge.fury.io/rb/cortex-client.svg)](http://badge.fury.io/rb/cortex-client)
+
 Ruby client library for [cortex](https://github.com/cb-talent-development/cortex)'s API.
 
 cortex-client does not handle fetching or refreshing an OAuth access_token. For this use a library such as [OAuth](http://oauth.rubyforge.org/).
