@@ -4,6 +4,10 @@ module Cortex
       client.get('/posts')
     end
 
+    def feed
+      client.get('/posts/feed')
+    end
+
     def get(id)
       client.get("/posts/#{id}")
     end
