@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Cortex::Request do
-  let(:client) { Cortex::Client.new('123') }
+  let(:client) { Cortex::Client.new(access_token: '123') }
 
   context 'with a cortex error response' do
     it 'should return the error object' do

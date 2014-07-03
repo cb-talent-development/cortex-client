@@ -2,12 +2,19 @@ require 'spec_helper'
 
 describe Cortex::Posts do
 
-  let(:client) { Cortex::Client.new('123') }
+  let(:client) { Cortex::Client.new(access_token: '123') }
 
   describe :get do
     it 'should correctly make the request' do
       client.should_receive(:get).with('/posts/1').and_return('response')
       client.posts.get(1).should == 'response'
+    end
+  end
+
+  describe :feed do
+    it 'should correctly make the request' do
+      client.should_receive(:get).with('/posts/feed').and_return('response')
+      client.posts.feed().should == 'response'
     end
   end
 

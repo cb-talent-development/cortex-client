@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe Cortex::Users do
 
-  let(:client) { Cortex::Client.new('123') }
+  let(:client) { Cortex::Client.new(access_token: '123') }
 
   describe :me do
     it 'should correctly make the request' do
