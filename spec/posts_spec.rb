@@ -13,8 +13,13 @@ describe Cortex::Posts do
 
   describe :feed do
     it 'should correctly make the request' do
-      client.should_receive(:get).with('/posts/feed').and_return('response')
+      client.should_receive(:get).with('/posts/feed', nil).and_return('response')
       client.posts.feed().should == 'response'
+    end
+
+    it 'should accept parameters and send them with the request' do
+      client.should_receive(:get).with('/posts/feed', {q: "Test*"}).and_return('success')
+      client.posts.feed(q: 'Test*').should == 'success'
     end
   end
 
@@ -33,6 +38,13 @@ describe Cortex::Posts do
         client.should_receive(:post).with('/posts', post).and_return('response')
         client.posts.save(post).should == 'response'
       end
+    end
+  end
+
+  describe :filters do
+    it 'should correctly make the request' do
+      client.should_receive(:get).with('/posts/filters').and_return('success')
+      client.posts.filters().should == 'success'
     end
   end
 end
