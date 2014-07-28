@@ -23,5 +23,9 @@ module Cortex
     def filters
       client.get('/posts/filters')
     end
+
+    def related(id)
+      client.get("/posts/feed/#{id}/related")
+    end
   end
 end
