@@ -54,4 +54,11 @@ describe Cortex::Posts do
       client.posts.related(1).should == 'success'
     end
   end
+
+  describe :authors do
+    it 'should correctly make the request' do
+      client.should_receive(:get).with('/posts/feed/authors').and_return('success')
+      client.posts.authors.should == 'success'
+    end
+  end
 end
