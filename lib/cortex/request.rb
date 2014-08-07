@@ -50,7 +50,7 @@ module Cortex
 
     def parse_response(response)
       if response.status < 300 || (response.body.kind_of?(Hash) && response.body['error'])
-        OpenStruct.new({body: response.body, headers: response.headers.select { |k| ["Content-Range", "X-Total-Items"].include? k } })
+        OpenStruct.new({body: response.body, headers: response.headers.select { |k| ['content-range', 'x-total-items'].include? k } })
       else
         OpenStruct.new({:error => response.body, :status => response.status, :original => response})
       end

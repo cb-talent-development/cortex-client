@@ -50,7 +50,7 @@ describe Cortex::Posts do
 
   describe :related do
     it 'should correctly make the request' do
-      client.should_receive(:get).with('/posts/feed/1/related').and_return('success')
+      client.should_receive(:get).with('/posts/feed/1/related', nil).and_return('success')
       client.posts.related(1).should == 'success'
     end
   end

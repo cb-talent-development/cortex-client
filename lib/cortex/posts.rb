@@ -1,7 +1,7 @@
 module Cortex
   class Posts  < Cortex::Resource
-    def query
-      client.get('/posts')
+    def query(params = nil)
+      client.get('/posts', params)
     end
 
     def feed(params = nil)
@@ -24,8 +24,12 @@ module Cortex
       client.get('/posts/filters')
     end
 
-    def related(id)
-      client.get("/posts/feed/#{id}/related")
+    def related(id, params = nil)
+      client.get("/posts/feed/#{id}/related", params)
+    end
+
+    def authors
+      client.get('/posts/feed/authors')
     end
   end
 end
