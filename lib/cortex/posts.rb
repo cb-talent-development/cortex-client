@@ -27,5 +27,9 @@ module Cortex
     def related(id)
       client.get("/posts/feed/#{id}/related")
     end
+
+    def authors
+      client.get("/posts/feed/authors")
+    end
   end
 end
