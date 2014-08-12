@@ -9,7 +9,7 @@ describe Cortex::Client do
   end
 
   it 'should preserve settings' do
-    client.access_token.should == access_token
-    client.base_url.should == base_url
+    expect(client.access_token).to eq(access_token)
+    expect(client.base_url).to eq(base_url)
   end
 end

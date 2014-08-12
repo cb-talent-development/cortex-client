@@ -7,7 +7,7 @@ describe Cortex::Request do
     it 'should return the error object' do
       body = {'error' => 'Validation error or something'}
       response = OpenStruct.new(:status => 422, :body => body, :headers => { :whatever => "Whatever"})
-      client.parse_response(response).to_h.should == { :body => body, :headers => {}}
+      expect(client.parse_response(response).to_h).to eq({ :body => body, :headers => {}})
     end
   end
 
@@ -16,9 +16,9 @@ describe Cortex::Request do
       body = 'Catastrophic error'
       response = OpenStruct.new(:status => 500, :body => body, :headers => { :whatever => "Whatever" })
       parsed = client.parse_response(response)
-      parsed.error.should == body
-      parsed.status.should == 500
-      parsed.original.should == response
+      expect(parsed.error).to eq(body)
+      expect(parsed.status).to eq(500)
+      expect(parsed.original).to eq(response)
     end
   end
 
@@ -26,7 +26,7 @@ describe Cortex::Request do
     it 'should return the parsed body' do
       body = {:id => 1, title: 'A post'}
       response = OpenStruct.new(:status => 200, :body => body, :headers => { :whatever => "Whatever" })
-      client.parse_response(response).to_h.should == { :body => body, :headers => {}}
+      expect(client.parse_response(response).to_h).to eq({ :body => body, :headers => {}})
     end
   end
 end
