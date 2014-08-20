@@ -1,12 +1,12 @@
 module Cortex
   class Result
-    attr_reader :raw_headers, :contents, :count, :page, :per_page
+    attr_reader :raw_headers, :contents, :total_items, :page, :per_page
 
     def initialize(body, headers, status)
       @contents = body
       @raw_headers = headers
       @status = status
-      @count = headers['x-total-items'] unless headers['x-total-items'].nil?
+      @total_items = headers['x-total-items'] unless headers['x-total-items'].nil?
       parse_headers(headers)
     end
 
