@@ -3,6 +3,7 @@ require 'cortex/request'
 require 'cortex/resource'
 require 'cortex/posts'
 require 'cortex/users'
+require 'cortex/result'
 require 'oauth2'
 
 module Cortex

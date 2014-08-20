@@ -30,7 +30,7 @@ module Cortex
       response = connection.delete do |r|
         r.url base_url + path
       end
-      response.status < 300
+      parse_response(response)
     end
 
     def delete!(path)
@@ -49,11 +49,12 @@ module Cortex
     end
 
     def parse_response(response)
-      if response.status < 300 || (response.body.kind_of?(Hash) && response.body['error'])
-        OpenStruct.new({body: response.body, headers: { status: response.status }.merge(response.headers.select { |k| ['content-range', 'x-total-items'].include? k })  })
-      else
-        OpenStruct.new({body: {error: response.body, status: response.status, original: response}, headers: { status: response.status }})
-      end
+      # if response.status < 300 || (response.body.kind_of?(Hash) && response.body['error'])
+      #   OpenStruct.new({body: response.body, headers: { status: response.status }.merge(response.headers.select { |k| ['content-range', 'x-total-items'].include? k })  })
+      # else
+      #   OpenStruct.new({body: {error: response.body, status: response.status, original: response}, headers: { status: response.status }})
+      # end
+      Cortex::Result.new(response.body, response.headers, response.status)
     end
   end
 end
