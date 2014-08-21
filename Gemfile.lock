@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    cortex-client (0.2.6)
+    cortex-client (0.3.0)
       faraday (~> 0.9)
       faraday_middleware (~> 0.9.0)
       oauth2 (~> 0.9)
