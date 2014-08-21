@@ -1,6 +1,6 @@
 module Cortex
   class Result
-    attr_reader :raw_headers, :contents, :total_items, :page, :per_page
+    attr_reader :raw_headers, :contents, :total_items, :page, :per_page, :errors, :range_start, :range_end, :range
 
     def initialize(body, headers, status)
       @contents = body
@@ -8,6 +8,7 @@ module Cortex
       @status = status
       @total_items = headers['x-total-items'] unless headers['x-total-items'].nil?
       parse_headers(headers)
+      @errors = find_errors
     end
 
     def is_error?
@@ -23,8 +24,26 @@ module Cortex
       if headers['content-range']
         matches = headers['content-range'].match(/^(\w+) (\d+)\-(\d+):(\d+)\/\d+$/i)
         @per_page = matches[4]
-        range_end = matches[3]
-        @page = (range_end.to_i / @per_page.to_i) + 1
+        @range_start = matches[2]
+        @range_end = matches[3]
+        @range = "#{@range_start}-#{@range_end}"
+        @page = (@range_end.to_i / @per_page.to_i) + 1
+      end
+    end
+
+    def find_errors
+      if is_error?
+        if @contents.is_a?(Hash)
+          if @contents.has_key?('errors')
+            Array(@contents['errors'])
+          else
+            Array(@contents['message'])
+          end
+        else
+          Array(@contents)
+        end
+      else
+        Array(nil)
       end
     end
   end
