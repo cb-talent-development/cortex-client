@@ -1,6 +1,6 @@
 module Cortex
   class Result
-    attr_reader :raw_headers, :contents, :total_items, :page, :per_page, :errors, :range_start, :range_end, :range
+    attr_reader :raw_headers, :contents, :total_items, :page, :per_page, :errors, :range_start, :range_end, :range, :status
 
     def initialize(body, headers, status)
       @contents = body

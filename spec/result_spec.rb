@@ -35,4 +35,9 @@ RSpec.describe Cortex::Result do
     expect(failed.raw_headers).to eq({})
   end
 
+  it 'should expose the http status' do
+    expect(result.status).to eq 200
+    expect(failed.status).to eq 403
+  end
+
 end
