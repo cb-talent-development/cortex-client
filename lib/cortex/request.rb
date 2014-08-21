@@ -40,7 +40,7 @@ module Cortex
       if response.status < 300
         true
       else
-        raise parse_response(response)
+        false
       end
     end
 
