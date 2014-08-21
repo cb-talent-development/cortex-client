@@ -12,6 +12,10 @@ module Cortex
       client.get("/posts/#{id}")
     end
 
+    def get_published(id)
+      client.get("/posts/feed/#{id}")
+    end
+
     def save(post)
       client.save('/posts', post)
     end
