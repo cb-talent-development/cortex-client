@@ -5,9 +5,7 @@
 
 Ruby client library for [cortex](https://github.com/cb-talent-development/cortex)'s API.
 
-**0.1 Changes the constructor**
-
-Please note that 0.1.0 and onward now require a hash be passed. You can access the previous functionality with the access_token key:
+## Constructor
 
 ```ruby
 require 'cortex-client'
@@ -31,12 +29,26 @@ client = Cortex::Client.new(key: 'my-app-id', secret: 'secrey-key-ssh', base_url
  end
 ```
 
+## Result object
+
+Cortex::Client will return a Cortex::Result object. The following methods are available:
+
+- contents
+- is_error?
+- errors
+- page
+- per_page
+- total_items
+- range
+- range_start
+- range_end
+- raw_headers
+
 ### Supported Endpoints
 
-- *Users* - me, get ,save
-- *Posts* - query, get, save, delete, feed
+- *Users* - me, get, save
+- *Posts* - query, get, save, delete, feed, feed/get, feed/get/released, feed/authors
 
 ### TODO
 - Handle pagination
-- Support for search queries
 - /media
