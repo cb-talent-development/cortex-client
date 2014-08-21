@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Cortex::Client do
+RSpec.describe Cortex::Client do
 
   let(:access_token) { '123' }
   let(:base_url) { 'http://localhost:3000' }
