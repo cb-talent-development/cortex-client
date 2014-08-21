@@ -11,7 +11,7 @@ module Cortex
     end
 
     def is_error?
-      @status >= 400
+      @status >= 400 || (@contents.is_a?(Hash) && @contents.has_key?('errors'))
     end
 
     private
