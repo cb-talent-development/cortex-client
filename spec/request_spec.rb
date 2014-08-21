@@ -3,11 +3,16 @@ require 'spec_helper'
 describe Cortex::Request do
   let(:client) { Cortex::Client.new(access_token: '123') }
 
-  context 'with a cortex error response' do
-    it 'should return the error object' do
-      body = {'error' => 'Validation error or something'}
-      response = OpenStruct.new(status: 422, body: body, headers: { :whatever => "Whatever"})
-      expect(client.parse_response(response).to_h).to eq({ :body => body, :headers => {status: 422}})
+  before(:context) do
+    connection = stub
+    connection.stubs(:get).returns(OpenStruct.new({body: "Body", headers: {}, status: 200} ) )
+
+    Cortex::Client.any_instance.stubs(:connection).returns(connection)
+  end
+
+  describe 'get' do
+    it 'should work' do
+      client.get('/test/')
     end
   end
 
@@ -16,10 +21,8 @@ describe Cortex::Request do
       body = 'Catastrophic error'
       response = OpenStruct.new(status: 500, body: body, headers: { whatever: "Whatever", status: 500 } )
       parsed = client.parse_response(response)
-      expect(parsed.body[:error]).to eq(body)
-      expect(parsed.body[:status]).to eq(500)
-      expect(parsed.body[:original]).to eq(response)
-      expect(parsed.headers[:status]).to eq(500)
+      expect(parsed.contents).to eq(body)
+      expect(parsed.raw_headers[:status]).to eq(500)
     end
   end
 
@@ -27,7 +30,7 @@ describe Cortex::Request do
     it 'should return the parsed body' do
       body = {:id => 1, title: 'A post'}
       response = OpenStruct.new(status: 200, body: body, headers: { :whatever => "Whatever" })
-      expect(client.parse_response(response).to_h).to eq({ body: body, headers: {status: 200}})
+      expect(client.parse_response(response)).to eq({ body: body, headers: {status: 200}})
     end
   end
 end

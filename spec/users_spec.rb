@@ -6,7 +6,7 @@ describe Cortex::Users do
 
   describe :me do
     it 'should correctly make the request' do
-      expect(client).to receive(:get).with('/users/me').and_return('response')
+      client.expects(:get).with('/users/me').returns('response')
       response = client.users.me
       expect(response).to eq('response')
     end
@@ -14,7 +14,7 @@ describe Cortex::Users do
 
   describe :get do
     it 'should correctly make the request' do
-      expect(client).to receive(:get).with('/users/1').and_return('response')
+      client.expects(:get).with('/users/1').returns('response')
       expect(client.users.get(1)).to eq('response')
     end
   end
@@ -23,7 +23,7 @@ describe Cortex::Users do
     context 'with an existing user' do
       it 'should correctly make the request' do
         user = {:id => 1, :email => 'user@cbcortex.com'}
-        expect(client).to receive(:put).with('/users/1', user).and_return('response')
+        client.expects(:put).with('/users/1', user).returns('response')
         response = client.users.save(user)
         expect(response).to eq('response')
       end
@@ -32,7 +32,7 @@ describe Cortex::Users do
     context 'with a new user' do
       it 'should correctly make the request' do
         user = {:email => 'user@cbcortex.com'}
-        expect(client).to receive(:post).with('/users', user).and_return('response')
+        client.expects(:post).with('/users', user).returns('response')
         response = client.users.save(user)
         expect(response).to eq('response')
       end
