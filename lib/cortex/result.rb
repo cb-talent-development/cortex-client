@@ -23,11 +23,11 @@ module Cortex
       end
       if headers['content-range']
         matches = headers['content-range'].match(/^(\w+) (\d+)\-(\d+):(\d+)\/\d+$/i)
-        @per_page = matches[4]
-        @range_start = matches[2]
-        @range_end = matches[3]
+        @per_page = matches[4].to_i
+        @range_start = matches[2].to_i
+        @range_end = matches[3].to_i
         @range = "#{@range_start}-#{@range_end}"
-        @page = (@range_end.to_i / @per_page.to_i) + 1
+        @page = (@range_end / @per_page) + 1
       end
     end
 
