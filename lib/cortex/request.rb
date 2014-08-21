@@ -33,17 +33,6 @@ module Cortex
       parse_response(response)
     end
 
-    def delete!(path)
-      response = connection.delete do |r|
-        r.url base_url + path
-      end
-      if response.status < 300
-        true
-      else
-        false
-      end
-    end
-
     def save(path, model)
       model[:id] ? put("#{path}/#{model[:id]}", model) : post(path, model)
     end

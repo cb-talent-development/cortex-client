@@ -41,20 +41,6 @@ describe Cortex::Request do
       end
     end
 
-    describe '#delete!' do
-      it 'should be true when status is under 300' do
-        @connection.stubs(:delete).returns(response).once
-        expect(client.delete!('/test/')).to be_truthy
-      end
-
-      it 'should be false when status is over 300' do
-        error = response
-        error.status = 403
-        @connection.stubs(:delete).returns(error).once
-        expect(client.delete!('/test/')).to be_falsey
-      end
-    end
-
     describe '#save' do
       it 'should post when new' do
         @connection.stubs(:post).returns(response).once
