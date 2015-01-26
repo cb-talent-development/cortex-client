@@ -7,7 +7,7 @@ module Cortex
       begin
         @app.call(env)
       rescue Faraday::ConnectionFailed
-        raise Cortex::Exceptions::ConnectionFailed(base_url: env[:url])
+        raise Cortex::Exceptions::ConnectionFailed.new(base_url: env[:url])
       end
     end
   end
