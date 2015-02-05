@@ -21,4 +21,5 @@ Gem::Specification.new do |s|
   s.add_dependency 'faraday_middleware', '~> 0.9.0'
   s.add_dependency 'oauth2', '~>0.9'
   s.add_dependency 'cortex-exceptions', '~> 0.0.4'
+  s.add_dependency 'hashie', '~> 3.4.0'
 end
