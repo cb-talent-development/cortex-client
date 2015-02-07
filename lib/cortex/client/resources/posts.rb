@@ -31,7 +31,7 @@ module Cortex
         end
 
         def save(id, body)
-          v1.post(APIs::V1::Endpoints::POST % {id: id}, body)
+          v1.put(APIs::V1::Endpoints::POST % {id: id}, body)
         end
       end
     end
