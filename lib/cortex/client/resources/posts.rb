@@ -33,6 +33,10 @@ module Cortex
         def save(id, body)
           v1.put(APIs::V1::Endpoints::POST % {id: id}, body)
         end
+
+        def delete(id)
+          v1.delete(APIs::V1::Endpoints::POST % {id: id})
+        end
       end
     end
   end

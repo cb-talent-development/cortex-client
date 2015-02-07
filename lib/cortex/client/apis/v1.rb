@@ -23,6 +23,11 @@ module Cortex
           build_response(response)
         end
 
+        def delete(path)
+          response = connection.delete(path)
+          build_response(response)
+        end
+
         module Endpoints
           POST_FEED = '/api/v1/posts/feed'
           POST      = '/api/v1/posts/%{id}'
