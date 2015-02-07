@@ -1,32 +1,21 @@
 module Cortex
   module Client
-    module Config
-      VALID_OPTION_KEYS = [
-        :client_id,
-        :client_secret,
-        :api_host
-      ]
+    class Config
+      attr_accessor :client_id, :client_secret, :api_host, :adapter
 
-      attr_accessor *VALID_OPTIONS_KEYS
-
-      def configure
-        yield self
-        self
+      def initialize
+        @api_host = ENV['CORTEX_API_HOST'] || "https://api.cbcortex.com/api"
       end
+    end
 
-      def options
-        options = {}
-        VALID_OPTIONS_KEYS.each { |name| options[name] = send(name) }
-        options
-      end
+    def self.configure
+      @config ||= Config.new
+      yield(@config) if block_given?
+      @config
+    end
 
-      def api_host
-        ENV['CORTEX_API_HOST'] || @api_host || 'https://api.cbcortex.com'
-      end
-
-      def debug
-        ENV['CORTEX_DEBUG'] || @debug || false
-      end
+    def self.config
+      @config || configure
     end
   end
 end
