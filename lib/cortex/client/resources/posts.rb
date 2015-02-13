@@ -6,6 +6,10 @@ module Cortex
           v1.get(APIs::V1::Endpoints::POST_FEED, criteria)
         end
 
+        def index(criteria=nil)
+          v1.get(APIs::V1::Endpoints::POST, {id: nil}, criteria)
+        end
+
         def get(id)
           v1.get(APIs::V1::Endpoints::POST % {id: id})
         end

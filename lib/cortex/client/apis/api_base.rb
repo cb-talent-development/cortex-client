@@ -35,14 +35,14 @@ module Cortex
         def oauth_client
           @client ||= begin
             oauth_options = @options[:oauth_options] || {}
-            client = Cortex::Client.config.oauth_adapter || Cortex::Client::OAuth
+            client = oauth_options[:oauth_adapter] || Cortex::Client.config.oauth_adapter || Cortex::Client::OAuth
             @client = client.new(oauth_options)
           end
           
         end
 
         def faraday_client
-          Cortex::Client.config.faraday_adapter || Faraday.default_adapter
+          @options[:faraday_adapter] || Cortex::Client.config.faraday_adapter || Faraday.default_adapter
         end
 
         def default_connection_options
