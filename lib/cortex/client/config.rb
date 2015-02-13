@@ -1,10 +1,11 @@
 module Cortex
   module Client
     class Config
-      attr_accessor :client_id, :client_secret, :api_base, :adapter, :oauth_adapter
+      attr_accessor :client_id, :client_secret, :api_base, :faraday_adapter, :oauth_adapter
 
       def initialize
-        @api_host = ENV['CORTEX_API_HOST'] || "https://api.cbcortex.com/api"
+        @api_base = ENV['CORTEX_API_HOST'] || "https://api.cbcortex.com/"
+        @faraday_adapter = ENV['FARADAY_ADAPTER'] || :net_http
       end
     end
 

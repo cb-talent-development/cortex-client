@@ -35,6 +35,8 @@ module Cortex
           RELATED   = '/api/v1/posts/feed/%{id}/related'
           AUTHORS   = '/api/v1/posts/authors'
           FILTERS   = '/api/v1/posts/filters'
+          MEDIA     = '/api/v1/media/%{id}'
+          MEDIA_INDEX = '/api/v1/media'
         end
       end
     end

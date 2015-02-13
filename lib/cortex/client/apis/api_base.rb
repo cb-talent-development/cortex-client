@@ -19,6 +19,7 @@ module Cortex
           conn_options = default_connection_options.merge(connection_options)
           Faraday.new(Cortex::Client.config.api_base, conn_options) do |conn|
             conn.request :oauth2, access_token.token
+            conn.request :multipart # To upload files
             conn.request :json
             conn.response :json, :content_type => /\bjson$/
             conn.adapter faraday_client
@@ -41,7 +42,7 @@ module Cortex
         end
 
         def faraday_client
-          Cortex::Client.config.adapter || Faraday.default_adapter
+          Cortex::Client.config.farday_adapter || Faraday.default_adapter
         end
 
         def default_connection_options
