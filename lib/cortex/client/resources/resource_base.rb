@@ -7,6 +7,10 @@ module Cortex
           apis.each{ |name, value| send("#{name}=", value)  }
         end
 
+        def client
+          v1.client
+        end
+
         protected
         
         attr_accessor :v1

@@ -24,7 +24,7 @@ module Cortex
       end
 
       def authorize_url
-        raise ArgumentErrorunless @token_type == :authorization_code || @redirect_uri.nil?
+        raise ArgumentError unless @token_type == :authorization_code || @redirect_uri.nil?
         @client.auth_code.authorize_url(redirect_uri: @redirect_uri)
       end
 

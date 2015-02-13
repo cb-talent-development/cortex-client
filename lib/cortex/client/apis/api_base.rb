@@ -5,6 +5,7 @@ module Cortex
   module Client
     module APIs
       class APIBase
+        attr_accessor :client
         def initialize(options = {})
           @options = options
           connection_options = @options[:connection_options] || {}
@@ -26,14 +27,17 @@ module Cortex
 
         def access_token
           @access_token ||= begin
-            oauth_options = @options[:oauth_options] || {}
-            client = oauth_client.new(oauth_options)
-            client.token
+            oauth_client.token
           end
         end
 
         def oauth_client
-          Cortex::Client.config.oauth_adapter || Cortex::Client::OAuth
+          @client ||= begin
+            oauth_options = @options[:oauth_options] || {}
+            client = Cortex::Client.config.oauth_adapter || Cortex::Client::OAuth
+            @client = client.new(oauth_options)
+          end
+          
         end
 
         def faraday_client
