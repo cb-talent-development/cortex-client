@@ -11,7 +11,7 @@ module Cortex
         end
 
         def create(body)
-          v1.post(APIs::V1::Endpoints::MEDIA_INDEX, body)
+          v1.post(APIs::V1::Endpoints::MEDIA, body)
         end
 
         def save(id, body)
