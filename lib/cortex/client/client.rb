@@ -6,16 +6,18 @@ require 'cortex/client/response'
 require 'cortex/client/resources/resource_base'
 require 'cortex/client/resources/posts'
 require 'cortex/client/resources/media'
+require 'cortex/client/resources/users'
 
 module Cortex
   module Client
     class Client
-      attr_reader :posts, :media
+      attr_reader :posts, :media, :users
 
       def initialize(options = {})
         @options = options
         @posts = Resources::Posts.new(apis, options)
         @media = Resources::Media.new(apis, options)
+        @users = Resources::Users.new(apis, options)
       end
 
       private

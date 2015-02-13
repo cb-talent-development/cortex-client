@@ -36,7 +36,8 @@ module Cortex
           AUTHORS   = '/api/v1/posts/authors'
           FILTERS   = '/api/v1/posts/filters'
           MEDIA     = '/api/v1/media/%{id}'
-          MEDIA_INDEX = '/api/v1/media'
+          USER      = '/api/v1/users/%{id}'
+          USER_AUTHOR = '/api/v1/users/%{id}/author'
         end
       end
     end

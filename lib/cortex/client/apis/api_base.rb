@@ -42,7 +42,7 @@ module Cortex
         end
 
         def faraday_client
-          Cortex::Client.config.farday_adapter || Faraday.default_adapter
+          Cortex::Client.config.faraday_adapter || Faraday.default_adapter
         end
 
         def default_connection_options
