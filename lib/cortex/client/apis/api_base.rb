@@ -5,7 +5,7 @@ module Cortex
   module Client
     module APIs
       class APIBase
-        def initialize(options = nil)
+        def initialize(options = {})
           @options = options
         end
 
@@ -15,7 +15,7 @@ module Cortex
 
         def connection(connection_options = {})
           conn_options = default_connection_options.merge(connection_options)
-          Faraday.new(Cortex::Client.config.api_host, conn_options) do |conn|
+          Faraday.new(Cortex::Client.config.api_base, conn_options) do |conn|
             conn.adapter faraday_client
             conn.request :oauth2, access_token.token
             conn.request :json
@@ -25,11 +25,14 @@ module Cortex
 
         def access_token
           @access_token ||= begin
-            client = ::OAuth2::Client.new(Cortex::Client.config.client_id, 
-                                          Cortex::Client.config.client_secret, 
-                                          site: Cortex::Client.config.api_host)
-            client.client_credentials.get_token
+            oauth_options = @options[:oauth_options] || {}
+            client = oauth_client.new(oauth_options)
+            client.token
           end
+        end
+
+        def oauth_client
+          Cortex::Client.config.oauth_adapter || Cortex::Client::OAuth
         end
 
         def faraday_client
@@ -42,10 +45,7 @@ module Cortex
               user_agent: "cortex-client (Ruby) - #{Cortex::Client::VERSION}",
               authorization: "Bearer #{access_token.token}"
             },
-            proxy: {
-              uri: 'http://localhost:8888/'
-            },
-            url: Cortex::Client.config.api_host
+            url: Cortex::Client.config.api_base
           }
         end
 
