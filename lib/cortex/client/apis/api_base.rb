@@ -7,6 +7,7 @@ module Cortex
       class APIBase
         def initialize(options = {})
           @options = options
+          connection_options = @options[:connection_options] || {}
         end
 
         protected
@@ -16,10 +17,10 @@ module Cortex
         def connection(connection_options = {})
           conn_options = default_connection_options.merge(connection_options)
           Faraday.new(Cortex::Client.config.api_base, conn_options) do |conn|
-            conn.adapter faraday_client
             conn.request :oauth2, access_token.token
             conn.request :json
             conn.response :json, :content_type => /\bjson$/
+            conn.adapter faraday_client
           end
         end
 
@@ -42,8 +43,7 @@ module Cortex
         def default_connection_options
           {
             headers: {
-              user_agent: "cortex-client (Ruby) - #{Cortex::Client::VERSION}",
-              authorization: "Bearer #{access_token.token}"
+              user_agent: "cortex-client (Ruby) - #{Cortex::Client::VERSION}"
             },
             url: Cortex::Client.config.api_base
           }
