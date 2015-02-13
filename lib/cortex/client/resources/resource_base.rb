@@ -1,5 +1,5 @@
 module Cortex
-  module Client
+  class Client
     module Resources
       class ResourceBase
         def initialize(apis, options)

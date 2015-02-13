@@ -1,5 +1,5 @@
 module Cortex
-  module Client
+  class Client
     module APIs
       class V1 < APIBase
         def get(path, query = {})

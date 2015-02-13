@@ -51,4 +51,3 @@ Cortex::Client will return a Cortex::Result object. The following methods are av
 
 ### TODO
 - Handle pagination
-- /media

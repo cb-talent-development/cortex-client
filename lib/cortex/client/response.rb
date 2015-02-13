@@ -1,5 +1,5 @@
 module Cortex
-  module Client
+  class Client
     class Response
       attr_reader :status, :headers, :body
 

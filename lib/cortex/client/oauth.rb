@@ -1,7 +1,7 @@
 require 'oauth2'
 
 module Cortex
-  module Client
+  class Client
     class OAuth
       VALID_TYPES = %i[authorization_code client_credentials].freeze # Why is %i array of symbols? Why not %s or %y??
       attr_reader :client_id, :client_secret, :api_base, :authorize_url, :token_url, :token

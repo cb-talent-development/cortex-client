@@ -1,5 +1,5 @@
 module Cortex
-  module Client
+  class Client
     class Config
       attr_accessor :client_id, :client_secret, :api_base, :faraday_adapter, :oauth_adapter
 

@@ -2,7 +2,7 @@ require 'faraday'
 require 'faraday_middleware'
 
 module Cortex
-  module Client
+  class Client
     module APIs
       class APIBase
         attr_accessor :client
