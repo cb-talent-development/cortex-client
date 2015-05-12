@@ -1,24 +1,22 @@
 require_relative '../../../../spec_helper'
 
 describe Cortex::Client::APIs::V1 do
-  let(:path) { '/path' }
-  let(:oauth) do
-    oauth_token = double()
-    allow(oauth_token).to receive(:token).and_return 'token'
-    Struct.new("OAuth", :options) do
-      def token
-        c = Struct.new("Token") do
+  Token = Struct.new("Token") do
           def token
             "token"
           end
-        end
-        c.new()
-      end
-    end
   end
+
+  OAuth = Struct.new(:options) do
+      def token
+        Token.new()
+      end
+  end
+
+  let(:path) { '/path' }
   let(:options) {
     { faraday_adapter: :test,
-      oauth_options: { oauth_adapter: oauth }
+      oauth_options: { oauth_adapter: OAuth }
     }
   }
 
@@ -32,6 +30,17 @@ describe Cortex::Client::APIs::V1 do
 
       client = Cortex::Client::APIs::V1.new(options)
       expect(client.get(path).body).to eq('ok')
+    end
+
+    it 'makes the request with the proper serialize parameters' do
+      stubs = Faraday::Adapter::Test::Stubs.new do |stub|
+        stub.get('/path?access_token=token&param1=true') { |env| [200, {}, 'ok'] }
+      end
+
+      options[:faraday_params] = stubs
+
+      client = Cortex::Client::APIs::V1.new(options)
+      expect(client.get(path, {param1: true}).body).to eq('ok')
     end
   end
 end
