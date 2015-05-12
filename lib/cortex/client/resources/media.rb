@@ -11,7 +11,7 @@ module Cortex
         end
 
         def create(body)
-          v1.post(APIs::V1::Endpoints::SINGLE_ITEM, {type: 'media', id: nil}, body)
+          v1.post(APIs::V1::Endpoints::SINGLE_ITEM % {type: 'media', id: nil}, body)
         end
 
         def save(id, body)
