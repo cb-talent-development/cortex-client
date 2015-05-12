@@ -43,6 +43,45 @@ describe Cortex::Client::APIs::V1 do
       expect(client.get(path, {param1: true}).body).to eq('ok')
     end
   end
+
+  describe :post do
+    it 'makes the request to the proper url' do
+      stubs = Faraday::Adapter::Test::Stubs.new do |stub|
+        stub.post('/path') { |env| [200, {}, 'ok'] }
+      end
+
+      options[:faraday_params] = stubs
+
+      client = Cortex::Client::APIs::V1.new(options)
+      expect(client.post(path, 'body').body).to eq('ok')
+    end
+  end
+
+  describe :put do
+    it 'makes the request to the proper url' do
+      stubs = Faraday::Adapter::Test::Stubs.new do |stub|
+        stub.put('/path') { |env| [200, {}, 'ok'] }
+      end
+
+      options[:faraday_params] = stubs
+
+      client = Cortex::Client::APIs::V1.new(options)
+      expect(client.put(path, 'body').body).to eq('ok')
+    end
+  end
+
+  describe :delete do
+    it 'makes the request to the proper url' do
+      stubs = Faraday::Adapter::Test::Stubs.new do |stub|
+        stub.delete('/path') { |env| [200, {}, 'ok'] }
+      end
+
+      options[:faraday_params] = stubs
+
+      client = Cortex::Client::APIs::V1.new(options)
+      expect(client.delete(path).body).to eq('ok')
+    end
+  end
 end
 
 describe Cortex::Client::APIs::V1::Endpoints do
