@@ -12,7 +12,7 @@ module Cortex
   class Client
     attr_reader :posts, :media, :users
 
-    def initialize(options = {})
+    def initialize(options = {}, apis = default_apis)
       @options = options
       @posts = Resources::Posts.new(apis, options)
       @media = Resources::Media.new(apis, options)
@@ -21,7 +21,7 @@ module Cortex
 
     private
 
-    def apis
+    def default_apis
       { v1: APIs::V1.new(@options) }
     end
   end

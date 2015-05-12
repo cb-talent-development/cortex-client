@@ -29,14 +29,12 @@ module Cortex
         end
 
         module Endpoints
-          POST_FEED = '/api/v1/posts/feed'
-          POST      = '/api/v1/posts/%{id}'
-          PUBLISHED = '/api/v1/posts/feed/%{id}'
-          RELATED   = '/api/v1/posts/feed/%{id}/related'
-          AUTHORS   = '/api/v1/posts/authors'
-          FILTERS   = '/api/v1/posts/filters'
-          MEDIA     = '/api/v1/media/%{id}'
-          USER      = '/api/v1/users/%{id}'
+          POST_FEED   = '/api/v1/posts/feed'
+          SINGLE_ITEM = '/api/v1/%{type}/%{id}'
+          PUBLISHED   = '/api/v1/posts/feed/%{id}'
+          RELATED     = '/api/v1/posts/feed/%{id}/related'
+          AUTHORS     = '/api/v1/posts/authors'
+          FILTERS     = '/api/v1/posts/filters'
           USER_AUTHOR = '/api/v1/users/%{id}/author'
         end
       end
