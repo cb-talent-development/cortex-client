@@ -22,7 +22,7 @@ module Cortex
             conn.request :multipart # To upload files
             conn.request :json
             conn.response :json, :content_type => /\bjson$/
-            conn.adapter faraday_client
+            conn.adapter faraday_client, faraday_parms
           end
         end
 
@@ -38,11 +38,15 @@ module Cortex
             client = oauth_options[:oauth_adapter] || Cortex::Client.config.oauth_adapter || Cortex::Client::OAuth
             @client = client.new(oauth_options)
           end
-          
+
         end
 
         def faraday_client
           @options[:faraday_adapter] || Cortex::Client.config.faraday_adapter || Faraday.default_adapter
+        end
+
+        def faraday_parms
+          @options[:faraday_params] || nil
         end
 
         def default_connection_options
