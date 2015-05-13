@@ -1,18 +1,6 @@
 require_relative '../../../../spec_helper'
 
 describe Cortex::Client::APIs::V1 do
-  Token = Struct.new("Token") do
-          def token
-            "token"
-          end
-  end
-
-  OAuth = Struct.new(:options) do
-      def token
-        Token.new()
-      end
-  end
-
   let(:path) { '/path' }
   let(:options) {
     {
@@ -20,7 +8,7 @@ describe Cortex::Client::APIs::V1 do
         faraday_adapter: :test
       },
       oauth_options: {
-        oauth_adapter: OAuth
+        oauth_adapter: Cortex::Client::Mocks::OAuth
       }
     }
   }

@@ -1,5 +1,6 @@
 require 'ostruct'
 require_relative '../lib/cortex-client'
+require_relative 'support/mocks/oauth_mocks'
 
 RSpec.configure do |config|
   config.mock_framework = :rspec
