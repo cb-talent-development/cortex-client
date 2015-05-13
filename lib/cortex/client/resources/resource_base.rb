@@ -12,7 +12,7 @@ module Cortex
         end
 
         protected
-        
+
         attr_accessor :v1
       end
     end
