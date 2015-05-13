@@ -1,6 +1,6 @@
 # cortex-client
 
-[![Build Status](https://travis-ci.org/cb-talent-development/cortex-client.svg)](https://travis-ci.org/cb-talent-development/cortex-client)
+[![Build Status](https://magnum.travis-ci.com/cbdr/cortex-client.svg?token=xfxzhqp5b1sdboEHmYQm)](https://magnum.travis-ci.com/cbdr/cortex-client)
 [![Gem Version](https://badge.fury.io/rb/cortex-client.svg)](http://badge.fury.io/rb/cortex-client)
 
 Ruby client library for [cortex](https://github.com/cb-talent-development/cortex)'s API.
@@ -62,7 +62,7 @@ end
 
 ## Result object
 
-Cortex::Client will return a Cortex::Client::Result object. 
+Cortex::Client will return a Cortex::Client::Result object.
 
 The following methods are available:
 
