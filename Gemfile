@@ -2,5 +2,7 @@ source 'https://rubygems.org'
 
 gemspec
 
-gem 'guard'
-gem 'guard-rspec'
+group :development do
+  gem 'guard'
+  gem 'guard-rspec'
+end
