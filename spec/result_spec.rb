@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe Cortex::Result do
-  let(:result) { Cortex::Result.new('body', {'x-total-items' => 10, 'content-range' => "posts 0-9:10/200"}, 200) }
+  let(:result) { Cortex::Result.new('body', {'X-Total' => 10, 'X-Page' => "1", "X-Per-Page" => "10"}, 200) }
   let(:failed) { Cortex::Result.new('failed body', {}, 403) }
 
   it 'should construct' do
@@ -31,7 +31,7 @@ RSpec.describe Cortex::Result do
   end
 
   it 'should expose the headers' do
-    expect(result.raw_headers).to eq({ 'x-total-items' => 10, 'content-range' => "posts 0-9:10/200" })
+    expect(result.raw_headers).to eq({ 'X-Total' => 10, 'X-Page' => "1", "X-Per-Page" => "10" })
     expect(failed.raw_headers).to eq({})
   end
 
