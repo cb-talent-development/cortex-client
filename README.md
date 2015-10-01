@@ -1,6 +1,6 @@
-# cortex-client
+# cortex-client-ruby
 
-[![Build Status](https://travis-ci.org/cb-talent-development/cortex-client.svg)](https://travis-ci.org/cb-talent-development/cortex-client)
+[![Build Status](https://travis-ci.org/cortex-cms/cortex-client-ruby.svg)](https://travis-ci.org/cortex-cms/cortex-client-ruby)
 [![Gem Version](https://badge.fury.io/rb/cortex-client.svg)](http://badge.fury.io/rb/cortex-client)
 
 Ruby client library for [cortex](https://github.com/cb-talent-development/cortex)'s API.
