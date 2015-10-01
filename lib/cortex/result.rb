@@ -19,16 +19,16 @@ module Cortex
     private
 
     def parse_headers(headers)
-      if headers['x-total-items']
-        @count = headers['x-total-items']
+      if headers['X-Total']
+        @count = headers['X-Total'].to_i
       end
-      if headers['content-range']
-        matches = headers['content-range'].match(/^(\w+) (\d+)\-(\d+):(\d+)\/\d+$/i)
-        @per_page = matches[4].to_i
-        @range_start = matches[2].to_i
-        @range_end = matches[3].to_i
+      if headers['X-Total']
+        @page = headers['X-Page'].to_i
+        @per_page = headers['X-Per-Page'].to_i
+        @range_start = (@page-1) * @per_page
+        @range_end = @per_page * @page - 1
         @range = "#{@range_start}-#{@range_end}"
-        @page = (@range_end / @per_page) + 1
+
       end
     end
 
