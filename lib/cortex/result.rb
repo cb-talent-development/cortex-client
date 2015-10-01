@@ -1,9 +1,10 @@
+require 'hashie'
 module Cortex
   class Result
     attr_reader :raw_headers, :contents, :total_items, :page, :per_page, :errors, :range_start, :range_end, :range, :status
 
     def initialize(body, headers, status)
-      @contents = body
+      @contents = parse(body)
       @raw_headers = headers
       @status = status
       @total_items = headers['x-total-items'] unless headers['x-total-items'].nil?
@@ -18,16 +19,27 @@ module Cortex
     private
 
     def parse_headers(headers)
-      if headers['x-total-items']
-        @count = headers['x-total-items']
+      if headers['X-Total']
+        @count = headers['X-Total'].to_i
       end
-      if headers['content-range']
-        matches = headers['content-range'].match(/^(\w+) (\d+)\-(\d+):(\d+)\/\d+$/i)
-        @per_page = matches[4].to_i
-        @range_start = matches[2].to_i
-        @range_end = matches[3].to_i
+      if headers['X-Total']
+        @page = headers['X-Page'].to_i
+        @per_page = headers['X-Per-Page'].to_i
+        @range_start = (@page-1) * @per_page
+        @range_end = @per_page * @page - 1
         @range = "#{@range_start}-#{@range_end}"
-        @page = (@range_end / @per_page) + 1
+
+      end
+    end
+
+    def parse(body)
+      case body
+        when Hash
+          ::Hashie::Mash.new(body)
+        when Array
+          body.map { |item| parse(item) }
+        else
+          body
       end
     end
 

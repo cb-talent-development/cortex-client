@@ -5,6 +5,7 @@ require 'cortex/posts'
 require 'cortex/users'
 require 'cortex/result'
 require 'oauth2'
+require 'cortex/exceptions'
 
 module Cortex
   class Client
@@ -30,8 +31,12 @@ module Cortex
     end
 
     def get_cc_token
-      client = OAuth2::Client.new(@key, @secret, site: @base_url)
-      client.client_credentials.get_token
+      begin
+        client = OAuth2::Client.new(@key, @secret, site: @base_url)
+        client.client_credentials.get_token
+      rescue Faraday::ConnectionFailed
+        raise Cortex::Exceptions::ConnectionFailed.new(base_url: @base_url)
+      end
     end
   end
 end
