@@ -48,6 +48,7 @@ Cortex::Client will return a Cortex::Result object. The following methods are av
 
 - *Users* - me, get, save
 - *Posts* - query, get, save, delete, feed, feed/get, feed/get/released, feed/authors
+- *Webpages* - feed
 
 ### TODO
 - Handle pagination
