@@ -3,6 +3,7 @@ require 'cortex/request'
 require 'cortex/resource'
 require 'cortex/posts'
 require 'cortex/users'
+require 'cortex/webpages'
 require 'cortex/result'
 require 'oauth2'
 require 'cortex/exceptions'
@@ -28,6 +29,7 @@ module Cortex
       end
       @posts = Cortex::Posts.new(self)
       @users = Cortex::Users.new(self)
+      @webpages = Cortex::Webpages.new(self)
     end
 
     def get_cc_token
