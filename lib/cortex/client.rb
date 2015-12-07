@@ -10,7 +10,7 @@ require 'cortex/exceptions'
 
 module Cortex
   class Client
-    attr_reader :posts, :users
+    attr_reader :posts, :users, :webpages
     attr_accessor :access_token, :base_url, :auth_method
     @key = ''
     @secret = ''
