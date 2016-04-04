@@ -1,7 +1,7 @@
-# cortex-client
+# cortex-client-ruby
 
-[![Build Status](https://magnum.travis-ci.com/cbdr/cortex-client.svg?token=xfxzhqp5b1sdboEHmYQm)](https://magnum.travis-ci.com/cbdr/cortex-client)
-[![Gem Version](https://badge.fury.io/rb/cortex-client.svg)](http://badge.fury.io/rb/cortex-client)
+[![Build Status](https://travis-ci.org/cortex-cms/cortex-client-ruby.svg)](https://travis-ci.org/cortex-cms/cortex-client-ruby)
+[![Gem Version](https://badge.fury.io/rb/cortex-client-ruby.svg)](http://badge.fury.io/rb/cortex-client-ruby)
 [![Code Climate](https://codeclimate.com/repos/5553aa53e30ba014fa005c90/badges/fb3fb156dc17d0afd948/gpa.svg)](https://codeclimate.com/repos/5553aa53e30ba014fa005c90/feed)
 
 Ruby client library for [cortex](https://github.com/cb-talent-development/cortex)'s API.
@@ -81,6 +81,7 @@ The following methods are available:
 - *Users* - me, get, save, create, delete, author
 - *Posts* - feed, index, get, get_published, related, filters, authors, create, save, delete
 - *Media* - index, get, create, save, delete
+- *Webpages* - feed
 
 ### TODO
 - Build result objects up

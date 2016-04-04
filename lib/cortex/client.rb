@@ -1,3 +1,4 @@
+require 'cortex/client/exceptions'
 require 'cortex/client/oauth'
 require 'cortex/client/apis/api_base'
 require 'cortex/client/apis/v1'
