@@ -19,7 +19,7 @@ module Cortex
 
       Faraday.new options do |conn|
         conn.use Cortex::FaradayMiddleware
-        byebug
+
         conn.use Faraday::HttpCache, store: Rails.cache, logger: Rails.logger if defined? Rails
         conn.request :oauth2, access_token.is_a?(OAuth2::AccessToken) ? access_token.token : access_token
         conn.request :json
