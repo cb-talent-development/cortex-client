@@ -18,7 +18,7 @@ module Cortex
 
       Faraday.new options do |conn|
         conn.use Cortex::FaradayMiddleware
-        builder.use :http_cache, store: Rails.cache if defined? Rails
+        conn.use :http_cache, store: Rails.cache if defined? Rails
         conn.request :oauth2, access_token.is_a?(OAuth2::AccessToken) ? access_token.token : access_token
         conn.request :json
         conn.response :json, :content_type => /\bjson$/
