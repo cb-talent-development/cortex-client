@@ -1,6 +1,7 @@
 require 'faraday'
 require 'faraday_middleware'
 require 'cortex/faraday_middleware'
+rquire 'faraday-http-cache'
 
 module Cortex
   module Connection
