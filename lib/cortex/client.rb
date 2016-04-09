@@ -14,6 +14,7 @@ module Cortex
     attr_accessor :access_token, :base_url, :auth_method
     @key = ''
     @secret = ''
+    @scopes = ''
 
     include Cortex::Connection
     include Cortex::Request
@@ -25,6 +26,7 @@ module Cortex
       else
         @key = hasharg[:key]
         @secret = hasharg[:secret]
+        @scopes ||= hasharg[:scopes]
         @access_token = get_cc_token
       end
       @posts = Cortex::Posts.new(self)
@@ -35,7 +37,7 @@ module Cortex
     def get_cc_token
       begin
         client = OAuth2::Client.new(@key, @secret, site: @base_url)
-        client.client_credentials.get_token
+        client.client_credentials.get_token({scope: @scopes})
       rescue Faraday::ConnectionFailed
         raise Cortex::Exceptions::ConnectionFailed.new(base_url: @base_url)
       end
