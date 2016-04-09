@@ -22,7 +22,7 @@ Alternatively, cortex-client will handle OAuth2 authentication for you:
 ```ruby
 require 'cortex-client'
 
-client = Cortex::Client.new(key: 'my-app-id', secret: 'secrey-key-ssh', base_url: 'base_url')
+client = Cortex::Client.new(key: 'my-app-id', secret: 'secrey-key-ssh', base_url: 'base_url', scopes: 'view:posts view:media')
  
  client.posts.query().each do |post|
   puts post
@@ -51,5 +51,4 @@ Cortex::Client will return a Cortex::Result object. The following methods are av
 - *Webpages* - feed
 
 ### TODO
-- Handle pagination
-- /media
+- Support *Media* endpoint
