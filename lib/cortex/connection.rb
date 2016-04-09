@@ -8,7 +8,7 @@ module Cortex
     def connection
       options = {
         :headers => {
-          :user_agent => "cortex-client (Ruby) - #{Cortex::VERSION}"
+            :user_agent => "cortex-client-ruby - #{Cortex::VERSION}"
         },
         :url => base_url
       }
