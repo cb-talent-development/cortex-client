@@ -1,6 +1,6 @@
 require 'faraday'
 require 'faraday_middleware'
-require 'cortex/faraday_middleware'
+require 'cortex/faraday_middleware/response_failures'
 
 module Cortex
   module Connection
@@ -17,11 +17,19 @@ module Cortex
       end
 
       Faraday.new options do |conn|
-        conn.use Cortex::FaradayMiddleware
-        conn.request :oauth2, access_token.is_a?(OAuth2::AccessToken) ? access_token.token : access_token
+        # Hello, temporal coupling. Order matters here.
+
+        # Request middleware first:
+        conn.use ::FaradayMiddleware::OAuth2, access_token.is_a?(OAuth2::AccessToken) ? access_token.token : access_token
+
+        # Response middleware second:
+        conn.use ::FaradayMiddleware::Mashify
+        conn.use Cortex::FaradayMiddleware::ResponseFailures
+
         conn.request :json
-        conn.request :url_encoded
         conn.response :json, :content_type => /\bjson$/
+
+        # Adapter always last:
         conn.adapter Faraday.default_adapter
       end
     end

@@ -1,10 +1,9 @@
-require 'hashie'
 module Cortex
   class Result
     attr_reader :raw_headers, :contents, :total_items, :page, :per_page, :errors, :range_start, :range_end, :range, :status, :total_pages, :next_page, :prev_page
 
     def initialize(body, headers, status)
-      @contents = parse(body)
+      @contents = body
       @raw_headers = headers
       @status = status
       parse_headers(headers)
@@ -29,17 +28,6 @@ module Cortex
         @total_pages = headers['X-Total-Pages']
         @next_page = headers['X-Next-Page']
         @prev_page = headers['X-Prev-Page']
-      end
-    end
-
-    def parse(body)
-      case body
-        when Hash
-          ::Hashie::Mash.new(body)
-        when Array
-          body.map { |item| parse(item) }
-        else
-          body
       end
     end
 
