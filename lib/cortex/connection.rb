@@ -20,6 +20,7 @@ module Cortex
         conn.use Cortex::FaradayMiddleware
         conn.request :oauth2, access_token.is_a?(OAuth2::AccessToken) ? access_token.token : access_token
         conn.request :json
+        conn.request :url_encoded
         conn.response :json, :content_type => /\bjson$/
         conn.adapter Faraday.default_adapter
       end
