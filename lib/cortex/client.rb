@@ -1,3 +1,5 @@
+require 'oauth2'
+
 require 'cortex/connection'
 require 'cortex/request'
 require 'cortex/resource'
@@ -25,10 +27,20 @@ module Cortex
         @key = hasharg[:key]
         @secret = hasharg[:secret]
         @scopes ||= hasharg[:scopes]
+        @access_token = get_cc_token
       end
       @posts = Cortex::Posts.new(self)
       @users = Cortex::Users.new(self)
       @webpages = Cortex::Webpages.new(self)
+    end
+
+    def get_cc_token
+      begin
+        client = OAuth2::Client.new(@key, @secret, site: @base_url)
+        client.client_credentials.get_token({scope: @scopes})
+      rescue Faraday::ConnectionFailed
+        raise Cortex::Exceptions::ConnectionFailed.new(base_url: @base_url)
+      end
     end
   end
 end

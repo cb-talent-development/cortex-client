@@ -1,4 +1,5 @@
 require 'faraday'
+
 require 'cortex/exceptions'
 
 module Cortex
