@@ -11,7 +11,7 @@ module Cortex
     end
 
     def is_error?
-      @status >= 400 || (@contents.is_a?(Hash) && @contents.has_key?('errors'))
+      @status >= 400 || (@contents.is_a?(Hash) && @contents.errors?)
     end
 
     private
@@ -32,19 +32,20 @@ module Cortex
     end
 
     def find_errors
+      errors = nil
       if is_error?
         if @contents.is_a?(Hash)
-          if @contents.has_key?('errors')
-            Array(@contents['errors'])
+          if @contents.errors?
+            errors = @contents.errors
           else
-            Array(@contents['message'])
+            errors = @contents.message
           end
         else
-          Array(@contents)
+          errors = @contents
         end
-      else
-        Array(nil)
       end
+
+      Array(errors)
     end
   end
 end

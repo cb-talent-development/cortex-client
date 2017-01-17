@@ -1,6 +1,7 @@
 require 'faraday'
 require 'faraday_middleware'
 require 'addressable/uri'
+require 'hashie/mash'
 
 require 'cortex/faraday_middleware/response_failures'
 
@@ -20,8 +21,6 @@ module Cortex
 
       Faraday::Utils.default_uri_parser = Addressable::URI
       Faraday.new options do |conn|
-        # Hello, temporal coupling. Order matters here.
-
         ## Request middleware first:
         conn.use ::FaradayMiddleware::OAuth2, access_token.is_a?(OAuth2::AccessToken) ? access_token.token : access_token
 
