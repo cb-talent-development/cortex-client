@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe Cortex::Result do
-  let(:result) { Cortex::Result.new('body', {'X-Total' => 10, 'X-Page' => "1", "X-Per-Page" => "10"}, 200) }
+  let(:result) { Cortex::Result.new('body', { 'X-Total' => '40', 'X-Page' => "1", 'X-Per-Page' => "10", 'X-Total-Pages' => '4', 'X-Next-Page' => '2', 'X-Prev-Page' => nil }, 200) }
   let(:failed) { Cortex::Result.new('failed body', {}, 403) }
 
   it 'should construct' do
@@ -31,7 +31,7 @@ RSpec.describe Cortex::Result do
   end
 
   it 'should expose the headers' do
-    expect(result.raw_headers).to eq({ 'X-Total' => 10, 'X-Page' => "1", "X-Per-Page" => "10" })
+    expect(result.raw_headers).to eq({ 'X-Total' => '40', 'X-Page' => "1", 'X-Per-Page' => "10", 'X-Total-Pages' => '4', 'X-Next-Page' => '2', 'X-Prev-Page' => nil })
     expect(failed.raw_headers).to eq({})
   end
 
@@ -40,4 +40,28 @@ RSpec.describe Cortex::Result do
     expect(failed.status).to eq 403
   end
 
+  describe '#total_pages' do
+    it 'returns the value of "X-Total-Pages"' do
+      expect(result.total_pages).to eq '4'
+    end
+  end
+
+  describe '#next_page' do
+    it 'returns_the_value of "X-Next-Page"' do
+      expect(result.next_page).to eq '2'
+    end
+  end
+
+  describe '#prev_page' do
+    it 'returns nil when on the first page' do
+      expect(result.prev_page).to be_nil
+    end
+
+    context 'on the 2nd page' do
+      let(:result) { Cortex::Result.new('body', { 'X-Total' => '40', 'X-Page' => "2", 'X-Per-Page' => "10", 'X-Total-Pages' => '4', 'X-Next-Page' => '3', 'X-Prev-Page' => '1' }, 200) }
+      it 'returns the value if "X-Prev-Page"' do
+        expect(result.prev_page).to eq '1'
+      end
+    end
+  end
 end

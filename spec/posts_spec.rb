@@ -2,6 +2,7 @@ require 'spec_helper'
 
 RSpec.describe Cortex::Posts do
 
+  # TODO: Stub out Faraday somewhere. See: https://github.com/lostisland/faraday#using-faraday-for-testing
   let(:client) { Cortex::Client.new(access_token: '123') }
 
   describe :get do
@@ -15,6 +16,10 @@ RSpec.describe Cortex::Posts do
     it 'should correctly make the request' do
       client.expects(:get).with('/posts/feed/1').returns('response')
       expect(client.posts.get_published(1)).to eq('response')
+    end
+
+    it 'should work with special characters' do
+      expect { client.posts.get_published('1 post') }.to_not raise_error(URI::InvalidURIError)
     end
   end
 

@@ -22,12 +22,16 @@ Alternatively, cortex-client will handle OAuth2 authentication for you:
 ```ruby
 require 'cortex-client'
 
-client = Cortex::Client.new(key: 'my-app-id', secret: 'secrey-key-ssh', base_url: 'base_url', scopes: 'view:posts view:media')
+client = Cortex::Client.new(key: 'my-app-id', secret: 'my-app-secret', base_url: 'base_url', scopes: 'view:posts view:media')
  
  client.posts.query().each do |post|
   puts post
  end
 ```
+
+## Authorization
+
+For more information about `scopes` and how to obtain an application `key` and `secret`, check [Cortex's authorization documentation](https://github.com/cbdr/cortex#authorization).
 
 ## Result object
 
