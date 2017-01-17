@@ -1,5 +1,3 @@
-require 'ostruct'
-
 module Cortex
   module Request
     def get(path, params = {})

@@ -1,3 +1,5 @@
+require 'oauth2'
+
 require 'cortex/connection'
 require 'cortex/request'
 require 'cortex/resource'
@@ -5,8 +7,6 @@ require 'cortex/posts'
 require 'cortex/users'
 require 'cortex/webpages'
 require 'cortex/result'
-require 'oauth2'
-require 'cortex/exceptions'
 
 module Cortex
   class Client
@@ -20,7 +20,7 @@ module Cortex
     include Cortex::Request
 
     def initialize(hasharg)
-      @base_url = hasharg[:base_url] || 'https://cbcortex.com/api/v1/'
+      @base_url = hasharg[:base_url] || 'https://cbcortex.com/api/v1'
       if hasharg.has_key? :access_token
         @access_token = hasharg[:access_token]
       else

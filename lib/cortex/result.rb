@@ -1,10 +1,9 @@
-require 'hashie'
 module Cortex
   class Result
     attr_reader :raw_headers, :contents, :total_items, :page, :per_page, :errors, :range_start, :range_end, :range, :status, :total_pages, :next_page, :prev_page
 
     def initialize(body, headers, status)
-      @contents = parse(body)
+      @contents = body
       @raw_headers = headers
       @status = status
       parse_headers(headers)
@@ -12,7 +11,7 @@ module Cortex
     end
 
     def is_error?
-      @status >= 400 || (@contents.is_a?(Hash) && @contents.has_key?('errors'))
+      @status >= 400 || (@contents.is_a?(Hash) && @contents.errors?)
     end
 
     private
@@ -32,31 +31,21 @@ module Cortex
       end
     end
 
-    def parse(body)
-      case body
-        when Hash
-          ::Hashie::Mash.new(body)
-        when Array
-          body.map { |item| parse(item) }
-        else
-          body
-      end
-    end
-
     def find_errors
+      errors = nil
       if is_error?
         if @contents.is_a?(Hash)
-          if @contents.has_key?('errors')
-            Array(@contents['errors'])
+          if @contents.errors?
+            errors = @contents.errors
           else
-            Array(@contents['message'])
+            errors = @contents.message
           end
         else
-          Array(@contents)
+          errors = @contents
         end
-      else
-        Array(nil)
       end
+
+      Array(errors)
     end
   end
 end
