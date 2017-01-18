@@ -20,7 +20,7 @@ module Cortex
     include Cortex::Request
 
     def initialize(hasharg)
-      @base_url = hasharg[:base_url] || 'https://cbcortex.com/api/v1'
+      @base_url = hasharg[:base_url] || 'http://cortex.dev/api/v1'
       if hasharg.has_key? :access_token
         @access_token = hasharg[:access_token]
       else

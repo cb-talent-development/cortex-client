@@ -1,8 +1,6 @@
 require 'spec_helper'
 
 RSpec.describe Cortex::Posts do
-
-  # TODO: Stub out Faraday somewhere. See: https://github.com/lostisland/faraday#using-faraday-for-testing
   let(:client) { Cortex::Client.new(access_token: '123') }
 
   describe :get do
@@ -18,8 +16,21 @@ RSpec.describe Cortex::Posts do
       expect(client.posts.get_published(1)).to eq('response')
     end
 
-    it 'should work with special characters' do
-      expect { client.posts.get_published('1 post') }.to_not raise_error(URI::InvalidURIError)
+    context 'with special characters' do
+      before(:all) do
+        stub_request(:get, 'http://cortex.dev/api/v1/posts/feed/1%20post?access_token=123')
+      end
+
+      it 'should correctly make the request' do
+        client.posts.get_published('1 post')
+
+        expect(a_request(:get, 'http://cortex.dev/api/v1/posts/feed/1%20post?access_token=123')).
+          to have_been_made.once
+      end
+
+      it 'should not be considered an invalid URI' do
+        expect { client.posts.get_published('1 post') }.to_not raise_error(URI::InvalidURIError)
+      end
     end
   end
 
