@@ -3,7 +3,7 @@ require 'faraday_middleware'
 require 'hashie/mash'
 
 require 'cortex/faraday_middleware/response_failures'
-require 'cortex/faraday_middleware/encode_uri_path'
+require 'cortex/faraday_middleware/normalize_uri_path'
 
 module Cortex
   module Connection
@@ -22,7 +22,7 @@ module Cortex
       Faraday::Utils.default_uri_parser = Addressable::URI
       Faraday.new options do |conn|
         ## Request middleware first:
-        conn.use Cortex::FaradayMiddleware::EncodeURIPath
+        conn.use Cortex::FaradayMiddleware::NormalizeURIPath
         conn.request :oauth2, access_token.is_a?(OAuth2::AccessToken) ? access_token.token : access_token
         conn.request :json
 

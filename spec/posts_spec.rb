@@ -17,15 +17,11 @@ RSpec.describe Cortex::Posts do
     end
 
     context 'with special characters' do
-      before(:all) do
-        stub_request(:get, 'http://cortex.dev/api/v1/posts/feed/1%20post?access_token=123')
-      end
+      let!(:stubbed_request) { stub_request(:get, 'http://cortex.dev/api/v1/posts/feed/1%20post?access_token=123') }
 
       it 'should correctly make the request' do
         client.posts.get_published('1 post')
-
-        expect(a_request(:get, 'http://cortex.dev/api/v1/posts/feed/1%20post?access_token=123')).
-          to have_been_made.once
+        expect(stubbed_request).to have_been_made.once
       end
 
       it 'should not be considered an invalid URI' do

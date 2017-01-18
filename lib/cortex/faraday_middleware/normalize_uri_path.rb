@@ -3,9 +3,9 @@ require 'addressable/uri'
 
 module Cortex
   module FaradayMiddleware
-    class EncodeURIPath < Faraday::Middleware
+    class NormalizeURIPath < Faraday::Middleware
       def call(env)
-        env[:url].path = Addressable::URI.encode(env[:url].path)
+        env[:url].path = Addressable::URI.normalize_component(env[:url].path)
 
         @app.call env
       end
