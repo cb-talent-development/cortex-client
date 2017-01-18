@@ -1,4 +1,5 @@
-require 'ostruct'
+require 'webmock/rspec'
+
 require_relative '../lib/cortex-client'
 
 RSpec.configure do |config|
