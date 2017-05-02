@@ -42,6 +42,13 @@ RSpec.describe Cortex::Posts do
     end
   end
 
+  describe :all_posts do
+    it 'should correctly make the request' do
+      client.expects(:get).with('/posts/feed/all_posts', {}).returns('response')
+      expect(client.posts.all_posts()).to eq('response')
+    end
+  end
+
   describe :save do
     context 'with an existing post' do
       it 'should correctly make the request' do
