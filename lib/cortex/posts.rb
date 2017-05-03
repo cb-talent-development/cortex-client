@@ -8,6 +8,10 @@ module Cortex
       client.get('/posts/feed', params)
     end
 
+    def all_posts(params = {})
+      client.get('/posts/feed/all_posts', params)
+    end
+
     def get(id)
       client.get("/posts/#{id}")
     end

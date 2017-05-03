@@ -3,6 +3,7 @@ Version History
     * All Version bumps are required to update this file as well!
 ----
 
+* 0.10.2 - Add all_posts function to posts class to retrieve all articles.
 * 0.10.0:
   * Utilize `Addressable::URI` as Faraday's default URI parser so that resourceful URI fragments are escaped and parsed properly
   * Utilize `Faraday::Middleware` for `Hashie::Mash`ing & OAuth2 Token insertion
