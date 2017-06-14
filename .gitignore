@@ -3,3 +3,4 @@
 .ruby-version
 Gemfile.lock
 *.gem
+.ruby-version

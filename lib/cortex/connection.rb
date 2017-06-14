@@ -23,7 +23,7 @@ module Cortex
       Faraday.new options do |conn|
         ## Request middleware first:
         conn.use Cortex::FaradayMiddleware::NormalizeURIPath
-        conn.request :oauth2, access_token.is_a?(OAuth2::AccessToken) ? access_token.token : access_token
+        conn.request :oauth2, access_token.is_a?(OAuth2::AccessToken) ? access_token.token : access_token, token_type: 'param'
         conn.request :json
 
         ## Response middleware second:
