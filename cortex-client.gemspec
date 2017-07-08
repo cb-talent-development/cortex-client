@@ -15,13 +15,13 @@ Gem::Specification.new do |s|
   s.require_paths = ['lib']
 
   s.add_development_dependency 'rake', '~> 12.0'
-  s.add_development_dependency 'rspec', '~> 3.5'
+  s.add_development_dependency 'rspec', '~> 3.6'
   s.add_development_dependency 'mocha', '~> 1.2'
   s.add_development_dependency 'webmock', '~> 2.3'
 
-  s.add_dependency 'oauth2', '~> 1.3'
-  s.add_dependency 'faraday', '~> 0.9'
-  s.add_dependency 'faraday_middleware', '~> 0.10'
+  s.add_dependency 'oauth2', '~> 1.4'
+  s.add_dependency 'faraday', '~> 0.12'
+  s.add_dependency 'faraday_middleware', '~> 0.11'
   s.add_dependency 'addressable', '~> 2.5'
   s.add_dependency 'hashie', '~> 3.5'
   s.add_dependency 'cortex-exceptions', '~> 0.0.4'
