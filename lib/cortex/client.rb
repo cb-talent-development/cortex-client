@@ -3,6 +3,7 @@ require 'oauth2'
 require 'cortex/connection'
 require 'cortex/request'
 require 'cortex/resource'
+require 'cortex/content_items'
 require 'cortex/posts'
 require 'cortex/users'
 require 'cortex/webpages'
@@ -10,7 +11,7 @@ require 'cortex/result'
 
 module Cortex
   class Client
-    attr_reader :posts, :users, :webpages
+    attr_reader :posts, :users, :webpages, :content_items
     attr_accessor :access_token, :base_url, :auth_method
     @key = ''
     @secret = ''
@@ -32,6 +33,7 @@ module Cortex
       @posts = Cortex::Posts.new(self)
       @users = Cortex::Users.new(self)
       @webpages = Cortex::Webpages.new(self)
+      @content_items = Cortex::ContentItems.new(self)
     end
 
     def get_cc_token
