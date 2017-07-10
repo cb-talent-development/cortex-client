@@ -3,6 +3,7 @@ Version History
     * All Version bumps are required to update this file as well!
 ----
 
+* 0.11.0 - Beta Cortex API, dependency upgrades
 * 0.10.3 - Stop warnings from FaradayMiddleware and Hashie::Mash
 * 0.10.2 - Add all_posts function to posts class to retrieve all articles.
 * 0.10.0:
